@@ -27,7 +27,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     // Mock admin password verification
-    const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
     if (password === ADMIN_PASSWORD) {
       setStoredAdminToken("admin-" + Date.now());
