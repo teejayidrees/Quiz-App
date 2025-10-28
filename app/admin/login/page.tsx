@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { setStoredAdminToken } from "@/lib/auth";
+import bcrypt from "bcryptjs";
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -27,9 +28,10 @@ export default function AdminLogin() {
     setLoading(true);
 
     // Mock admin password verification
-    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-
-    if (password === ADMIN_PASSWORD) {
+    const ADMIN_PASSWORD_HASH =
+      "$2b$10$slR5EPh0ZN6ByM380JYjN./nMSZMHp4rph6b8bi2ArNdLsSD40bgO";
+    const isMatched = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+    if (isMatched) {
       setStoredAdminToken("admin-" + Date.now());
       router.push("/admin/dashboard");
     } else {
